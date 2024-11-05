@@ -1,0 +1,28 @@
+package templates
+
+templ CustomerSearch() {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>Search Customers</title>
+		</head>
+		<body>
+			<h1>Customer search:</h1>
+			<form id="customerSearchForm">
+				<label for="lastName">Search by last name:</label>
+				<input type="text" name="lastName" id="lastName" placeholder="Last Name..." />
+			</form>
+			<div id="searchResults"></div>
+			<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+			<script>
+				$('#customerSearchForm').on('submit', function(e) { e.preventDefault(); });
+				$('#lastName').on('keyup', function(e) {
+					const lastName = e.target.value;
+					$.get(`customer_search?lastName=${lastName}`, function(data) {
+						$('#searchResults').html(data);
+					});
+				});
+			</script>
+		</body>
+	</html>
+}
